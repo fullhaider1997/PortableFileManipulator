@@ -7,21 +7,25 @@
 #include <numeric>
 #include <algorithm>
 #include "FileManipulator.h"
+
+using namespace std;
+
+
 int main()
 {
    
-	std::string command;
+	string command;
 	
 	while (1)
 	{
 
-		std::cin >> command;
+		cin >> command;
 		
-		std::stringstream ss(command);
-		std::istream_iterator<std::string> begin(ss);
-		std::istream_iterator<std::string> end;
-		std::vector<std::string> listArgs(begin, end);
-		std::copy(listArgs.begin(), listArgs.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
+		stringstream ss(command);
+		istream_iterator<std::string> begin(ss);
+		istream_iterator<std::string> end;
+		vector<std::string> listArgs(begin, end);
+		copy(listArgs.begin(), listArgs.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
 		
 		
 		if (listArgs.at(COMMAND) == "create") {
