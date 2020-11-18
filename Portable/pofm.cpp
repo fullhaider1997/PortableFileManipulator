@@ -7,42 +7,49 @@
 #include <numeric>
 #include <algorithm>
 #include "FileManipulator.h"
-
+#include "utilties.h"
 using namespace std;
 
 
 int main()
 {
    
-	string command;
 	
 	while (1)
 	{
+		string command;
+		std::vector<std::string> listArgs;
+		
+		std::getline(std::cin, command);
 
-		cin >> command;
+	    listArgs = Utility::convertStringToVectorString(command);
 		
-		stringstream ss(command);
-		istream_iterator<std::string> begin(ss);
-		istream_iterator<std::string> end;
-		vector<std::string> listArgs(begin, end);
-		copy(listArgs.begin(), listArgs.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
-		
+
+
 		
 		if (listArgs.at(COMMAND) == "create") {
 			
 			 FileManipulator::createFile(listArgs);
+			 
 
 		}
 		else if (listArgs.at(COMMAND) == "rename") {
 
 			FileManipulator::renameFile(listArgs);
+			
 		}
 		else if (listArgs.at(COMMAND) == "delete") {
 
-			FileManipulator::renameFile(listArgs);
+			FileManipulator::deleteFile(listArgs);
+			
 		}
+		else {
 
-
+			std::cout << "Unrecognize input !" << std::endl;
+		}
+		
+		
+		
 
 
 

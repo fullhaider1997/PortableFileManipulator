@@ -21,9 +21,15 @@
     <ClCompile Include="FileManipulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utilites.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileManipulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

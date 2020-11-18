@@ -154,9 +154,11 @@
   <ItemGroup>
     <ClCompile Include="FileManipulator.cpp" />
     <ClCompile Include="pofm.cpp" />
+    <ClCompile Include="utilites.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileManipulator.h" />
+    <ClInclude Include="utilties.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
