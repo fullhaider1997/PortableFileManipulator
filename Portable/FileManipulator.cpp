@@ -21,6 +21,61 @@ using namespace std;
 	 *	Return
 	 */
 	 
+	 if (fileExists(arg.input_file))
+	{
+		if (arg.force) {
+			FILE* input = fopen(arg.input_file, "w");
+			if (input == NULL) {
+				printf("Error : File cannot be created\n");
+				exit(1);
+			}
+
+			if (arg.verbose)
+				printf("File successfully created\n");
+			exit(1);
+		}
+		printf("File already exists. Do you want to overwrite the file? y/n\n");
+		char answer = 0;
+		scanf("%c", &answer);
+
+		while (answer != 121 && answer != 110) {
+			printf("Invalid Response. Try Again y/n\n");
+			scanf("%c", &answer);
+		}
+
+		if (answer == 110)
+			exit(1);
+		if (answer == 121)
+		{
+			FILE* fptr = fopen(arg.input_file, "w");
+			if (fptr == NULL) {
+				printf("Cannot create the file\n");
+				exit(1);
+			}
+			if (arg.verbose) {
+				printf("File successfully created\n");
+				exit(1);
+			}
+			else
+				exit(1);
+		}
+	}
+	else {
+		FILE* input = fopen(arg.input_file, "w");
+
+		if (input == NULL)
+		{
+			printf("Cannot create file\n");
+			exit(1);
+		}
+
+		if (arg.verbose) {
+			printf("File successfully created\n");
+			exit(1);
+		}
+		else
+			exit(1);
+	}
 
 	 cout << "Creating a file....." << std::endl;
 	 
