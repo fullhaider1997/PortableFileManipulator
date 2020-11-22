@@ -52,7 +52,34 @@ using namespace std;
 
 int FileManipulator::deleteFile(vector<string> listArgs) {
 
-	cout << "delete a file....." << endl;
+	char choice;
+	
+	listArgs.erase(listArgs.begin());
+	
+	for(auto fileName :listArgs){
+		
+		std::string deleteFileName = fileName + ".pofm";
+		
+		ifstream f(deleteFileName);
+		
+		if(f.good()) {
+			
+			std::cout<<"Are you sure you want to delete it (y/n)";
+			std::cin>>choice;
+			
+			if(choice == "y") {
+				if(!remove(deleteFileName))
+					std::cout<<"Successfully deleted "<<deleteFileName<<"\n";
+				else
+					std::cout<<"Unable to Delete "<<deleteFileName<<"\n";
+			}
+			else if(choice == "n")
+				std::cout<<deleteFileName<< " not deleted\n";
+			else
+				std::cout<<"Exiting program\n";
+				
+	}
+		
 	
 
 	return 0;
