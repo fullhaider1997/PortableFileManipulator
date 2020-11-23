@@ -4,6 +4,8 @@
 #include <fstream> 
 #include <algorithm>
 #include <cctype>
+#include <cstdio>
+
 using namespace std;
 
  int FileManipulator::createFile(vector<string> listArgs)
