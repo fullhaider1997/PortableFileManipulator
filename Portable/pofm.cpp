@@ -7,7 +7,7 @@
 #include <numeric>
 #include <algorithm>
 #include "FileManipulator.h"
-#include "utilties.h"
+#include "utilities.h"
 using namespace std;
 
 
