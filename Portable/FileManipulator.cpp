@@ -1,5 +1,5 @@
 #include "FileManipulator.h"
-#include "utilties.h"
+#include "utilities.h"
 #include <iostream>
 #include <fstream> 
 #include <algorithm>
