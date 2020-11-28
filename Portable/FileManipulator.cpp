@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
-
+#include <string>
 using namespace std;
 
  int FileManipulator::createFile(vector<string> listArgs)
@@ -52,40 +52,43 @@ using namespace std;
 	return 0;
 }
 
-int FileManipulator::deleteFile(vector<string> listArgs) {
+ int FileManipulator::deleteFile(vector<string> listArgs) {
 
-	char choice;
+	 char choice;
 
-	listArgs.erase(listArgs.begin());
+	 listArgs.erase(listArgs.begin());
 
-	for (auto fileName : listArgs) {
+	 for (auto fileName : listArgs) {
 
-		std::string deleteFileName = fileName + ".pofm";
+		 std::string deleteFileName = fileName + ".pofm";
 
-		ifstream f(deleteFileName);
+		 ifstream f(deleteFileName);
 
-		if (f.good()) {
+		 if (f.good()) {
 
-			std::cout << "Are you sure you want to delete it (y/n)";
-			std::cin >> choice;
+			 std::cout << "Are you sure you want to delete it (y/n)";
+			 std::cin >> choice;
 
-			if (choice == 'y') {
-				if (!std::remove("deleteFileName"))
-					std::cout << "Successfully deleted " << deleteFileName << "\n";
-				else
-					std::cout << "Unable to Delete " << deleteFileName << "\n";
-			}
-			else if (choice == 'n')
-				std::cout << deleteFileName << " not deleted\n";
-			else
-				std::cout << "Exiting program\n";
+			 if (choice == 'y') {
+				 if (!std::remove("deleteFileName"))
+					 std::cout << "Successfully deleted " << deleteFileName << "\n";
+				 else
+					 std::cout << "Unable to Delete " << deleteFileName << "\n";
+			 }
+			 else if (choice == 'n')
+				 std::cout << deleteFileName << " not deleted\n";
+			 else
+				 std::cout << "Exiting program\n";
 
-		}
+		 }
 
 
 
-		return 0;
-	}
+		 
+	 }
+	 return 0;
+ }
+
 
 int FileManipulator::renameFile(vector<string> listArgs) {
 
@@ -189,11 +192,64 @@ int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) 
 
 		 }
 		
+	
+
+	return 0;
+}
 
 
+int  FileManipulator::InsertTextByPosition(vector<string> listArgs) {
+	// insert filename position_number text;
 
+
+	   std::string fileName;
+	   int SpecifiedPostion;
+	   int countChars = 0;
+	   std::string line;
+	   std::string data;
+       listArgs.erase(listArgs.begin());
+
+	 
+
+	   fileName = listArgs.at(0);
+	   pos = std::stoi(listArgs.at(1));
+	   data = listArgs.at(2);
+
+	   //check for all args if they are valid or not
+	   std::string newFileName = fileName + ".pofm";
+
+	   //create an object stream
+	   ifstream file(newFileName);
+
+	   //Check if this file exist
+	   if (file.good() == false) {
+
+		   std::cout << "This file doesn't exist !";
+
+	   }
+	   
+	   //Check if the position is valid or not
+	   if (pos < 0) {
+		   std::cout << "Pos shouldn't be negative !" << std::endl;
+	   }
+	   
+	   while (std::getline(file, line)) {
+		     
+		   countChars = line.length();
+
+		   if (countChars == SpecifiedPostion) {
+
+
+		   }
+
+	   }
+	   
 
 	
+
+	
+
+
 
 	return 0;
 }

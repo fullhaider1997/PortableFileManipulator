@@ -58,6 +58,11 @@ int main()
 			std::cout << "Bye !";
 			break;
 		}
+		else if (listArgs.at(COMMAND) == "insert") {
+
+			FileManipulator::InsertTextByPosition(listArgs);
+
+		}
 		
 		 
 		else {
