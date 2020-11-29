@@ -63,6 +63,10 @@ int main()
 			FileManipulator::InsertTextByPosition(listArgs);
 
 		}
+		else if (listArgs.at(COMMAND) == "removedata") {
+
+			FileManipulator::removeAllTextFile(listArgs);
+		}
 		
 		 
 		else {
