@@ -269,8 +269,8 @@ int FileManipulator::removeAllTextFile(vector<string> listArgs) {
 		std::string newFileName = fileName + ".pofm";
 
 
-		//create an object stream
-		ofstream file(newFileName);
+		//create an object input stream
+		ifstream ifile(newFileName);
 		
 
 		//Check if this file exist
@@ -280,10 +280,15 @@ int FileManipulator::removeAllTextFile(vector<string> listArgs) {
 
 		}
 
-
-		// we open the file for writing and use the trunc option to discard all the data in the file
-		file.open(newFileName, std::ofstream::out | std::ofstream::trunc);
+		//close the object input file stream
 		file.close();
+
+		ofstream ofile(newFileName);
+		
+		// we open the file for writing and use the trunc option to discard all the data in the file
+		ofile.open(newFileName, std::ofstream::out | std::ofstream::trunc);
+		//close the file output stream
+		ofile.close();
 
 
 
