@@ -1,4 +1,5 @@
 #include "FileManipulator.h"
+#include <stdio.h>
 #include "utilties.h"
 #include <iostream>
 #include <fstream> 
@@ -92,6 +93,92 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 
 
 	return 0;
+}
+
+
+/// <summary>
+/// Copy file from a source location to a target location
+///  Both copies exist
+/// </summary>
+/// <param name="from">Source Location</param>
+/// <param name="to">Target Location</param>
+/// <returns></returns>
+int FileManipulator::copyFile(string from, string to) 
+{
+	ifstream fi;
+	ofstream fo;
+	char c;
+	//try to access original source file to copy
+	//fi.open(from);
+	//if (!fi)
+	//{
+	//	cout << "Cannot open source file";
+	//	return 0;
+	//}
+
+	////try to open the target file to paste in.
+	//fo.open(to);
+	//if (!fo)
+	//{
+	//	cout << "Cannot open target file";
+	//	return 0;
+	//}
+
+
+	//while (fi.eof() == 0)
+	//{
+	//	fi >> c;
+	//	fo << c;
+	//}
+	//cout << "Copying file successful";
+	//fi.close();
+	//fo.close();
+	//return 0;
+
+	//access sourcefile
+	fi.open(from, fstream::in | fstream::binary);
+
+	if (fi.is_open())
+	{
+		//copy to target location
+		fo.open(to, fstream::out);
+
+		while (fi.read(&c, 1)) {
+			fo.write(&c, 1);
+		}
+
+		//close both files
+		fo.close();
+		fi.close();
+		std::cout << "Successfully copied file...";
+	}
+	else {
+		std::cout << "Source File error..";
+	}
+}
+
+/// <summary>
+/// Move file from source location to a target location
+/// Only one copy of file exists
+/// </summary>
+/// <param name="from"></param>
+/// <param name="to"></param>
+/// <returns></returns>
+int FileManipulator::moveFile(string from, string to)
+{
+	//not using streams
+
+	const char* f = from.c_str();
+	const char* t = to.c_str();
+
+	//instead use rename function to move directory
+	int process = rename(f, t);
+	if (process = 0)
+		std::cout << "File successfully moved";
+	else
+		std::cout << "Error moving file";
+
+	return process;
 }
 
 int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) {

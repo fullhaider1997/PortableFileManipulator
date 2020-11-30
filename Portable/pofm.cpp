@@ -48,7 +48,19 @@ int main()
 
 			FileManipulator::deleteFile(listArgs);
 			
-		}else if (listArgs.at(COMMAND) == "append") {
+		}
+		else if (listArgs.at(COMMAND) == "copy") {
+
+			FileManipulator::copyFile(listArgs);
+
+		}
+		
+		else if (listArgs.at(COMMAND) == "move") {
+
+			FileManipulator::moveFile(listArgs);
+
+		}
+		else if (listArgs.at(COMMAND) == "append") {
              
 			FileManipulator::appendTextEndFile(listArgs,command);
 
