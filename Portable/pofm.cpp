@@ -7,7 +7,7 @@
 #include <numeric>
 #include <algorithm>
 #include "FileManipulator.h"
-#include "utilties.h"
+#include "utilities.h"
 using namespace std;
 
 
@@ -69,6 +69,15 @@ int main()
 
 			std::cout << "Bye !";
 			break;
+		}
+		else if (listArgs.at(COMMAND) == "insert") {
+
+			FileManipulator::InsertTextByPosition(listArgs);
+
+		}
+		else if (listArgs.at(COMMAND) == "removedata") {
+
+			FileManipulator::removeAllTextFile(listArgs);
 		}
 		
 		 

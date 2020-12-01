@@ -5,6 +5,7 @@
 
 
 using namespace std;
+
 class Utility {
 
 
@@ -16,3 +17,4 @@ public:
 
 
 };
+

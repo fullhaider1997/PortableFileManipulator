@@ -1,9 +1,10 @@
-#include "utilties.h"
+#include "utilities.h"
 #include <sstream>
 #include <sstream>
 #include <iterator>
-
 #include <iostream>
+
+
 std::vector<string>  Utility::convertStringToVectorString(std::string command){
 
 	    std::vector<std::string> listArgs;
