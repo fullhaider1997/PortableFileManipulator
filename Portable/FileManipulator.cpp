@@ -51,10 +51,6 @@ using namespace std;
 
 
 
-
-
-
-
 int FileManipulator::renameFile(vector<string> listArgs) {
 
 	cout << "rename a file....." << endl;
