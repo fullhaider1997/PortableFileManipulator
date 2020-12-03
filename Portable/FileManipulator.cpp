@@ -51,49 +51,49 @@ using namespace std;
 	return 0;
 }
 
-int FileManipulator::deleteFile(vector<string> listArgs) {
-
-	char choice;
-	
-	listArgs.erase(listArgs.begin());
-	
-	for(auto fileName :listArgs){
-		
-		std::string deleteFileName = fileName + ".pofm";
-		
-		ifstream f(deleteFileName);
-		
-		if(f.good()) {
-			
-			std::cout<<"Are you sure you want to delete it (y/n)";
-			std::cin>>choice;
-			
-			if(choice == "y") {
-				if(!remove(deleteFileName))
-					std::cout<<"Successfully deleted "<<deleteFileName<<"\n";
-				else
-					std::cout<<"Unable to Delete "<<deleteFileName<<"\n";
-			}
-			else if(choice == "n")
-				std::cout<<deleteFileName<< " not deleted\n";
-			else
-				std::cout<<"Exiting program\n";
-				
-	}
-		
-	
-
-	return 0;
-}
-
-int FileManipulator::renameFile(vector<string> listArgs) {
-
-	cout << "rename a file....." << endl;
-	
-
-
-	return 0;
-}
+//int FileManipulator::deleteFile(vector<string> listArgs) {
+//
+//	char choice;
+//	
+//	listArgs.erase(listArgs.begin());
+//	
+//	for(auto fileName :listArgs){
+//		
+//		std::string deleteFileName = fileName + ".pofm";
+//		
+//		ifstream f(deleteFileName);
+//		
+//		if(f.good()) {
+//			
+//			std::cout<<"Are you sure you want to delete it (y/n)";
+//			std::cin>>choice;
+//			
+//			if(choice == "y") {
+//				if(!remove(deleteFileName))
+//					std::cout<<"Successfully deleted "<<deleteFileName<<"\n";
+//				else
+//					std::cout<<"Unable to Delete "<<deleteFileName<<"\n";
+//			}
+//			else if(choice == "n")
+//				std::cout<<deleteFileName<< " not deleted\n";
+//			else
+//				std::cout<<"Exiting program\n";
+//				
+//	}
+//		
+//	
+//
+//	return 0;
+//}
+//
+//int FileManipulator::renameFile(vector<string> listArgs) {
+//
+//	cout << "rename a file....." << endl;
+//	
+//
+//
+//	return 0;
+//}
 
 
 /// <summary>
@@ -103,8 +103,11 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 /// <param name="from">Source Location</param>
 /// <param name="to">Target Location</param>
 /// <returns></returns>
-int FileManipulator::copyFile(string from, string to) 
+int FileManipulator::copyFile(vector<string> listArgs)
 {
+	listArgs.erase(listArgs.begin());
+	string to = listArgs.back();
+	string from = listArgs.front();
 	ifstream fi;
 	ofstream fo;
 	char c;
@@ -164,10 +167,12 @@ int FileManipulator::copyFile(string from, string to)
 /// <param name="from"></param>
 /// <param name="to"></param>
 /// <returns></returns>
-int FileManipulator::moveFile(string from, string to)
+int FileManipulator::moveFile(vector<string> listArgs)
 {
 	//not using streams
-
+	listArgs.erase(listArgs.begin());
+	string to = listArgs.back();
+	string from = listArgs.front();
 	const char* f = from.c_str();
 	const char* t = to.c_str();
 
