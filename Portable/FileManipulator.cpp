@@ -5,6 +5,11 @@
 #include <fstream> 
 #include <algorithm>
 #include <cctype>
+#include <cstdio>
+#include <string>
+#define _CRT_SECURE_NO_DEPRECATE
+#pragma warning(disable : 4996)
+#include <stdio.h>
 using namespace std;
 
  int FileManipulator::createFile(vector<string> listArgs)
@@ -51,49 +56,113 @@ using namespace std;
 	return 0;
 }
 
-//int FileManipulator::deleteFile(vector<string> listArgs) {
-//
-//	char choice;
-//	
-//	listArgs.erase(listArgs.begin());
-//	
-//	for(auto fileName :listArgs){
-//		
-//		std::string deleteFileName = fileName + ".pofm";
-//		
-//		ifstream f(deleteFileName);
-//		
-//		if(f.good()) {
-//			
-//			std::cout<<"Are you sure you want to delete it (y/n)";
-//			std::cin>>choice;
-//			
-//			if(choice == "y") {
-//				if(!remove(deleteFileName))
-//					std::cout<<"Successfully deleted "<<deleteFileName<<"\n";
-//				else
-//					std::cout<<"Unable to Delete "<<deleteFileName<<"\n";
-//			}
-//			else if(choice == "n")
-//				std::cout<<deleteFileName<< " not deleted\n";
-//			else
-//				std::cout<<"Exiting program\n";
-//				
-//	}
-//		
-//	
-//
-//	return 0;
-//}
-//
-//int FileManipulator::renameFile(vector<string> listArgs) {
-//
-//	cout << "rename a file....." << endl;
-//	
-//
-//
-//	return 0;
-//}
+
+int FileManipulator::deleteFile(vector<string> listArgs) {
+
+	char choice;
+	
+	listArgs.erase(listArgs.begin());
+	
+	for(auto fileName :listArgs){
+		
+		std::string deleteFileName = fileName + ".pofm";
+		
+		ifstream f(deleteFileName);
+		
+		if(f.good()) {
+			
+			std::cout<<"Are you sure you want to delete it (y/n)";
+			std::cin>>choice;
+			
+			if(choice == "y") {
+				if(!remove(deleteFileName))
+					std::cout<<"Successfully deleted "<<deleteFileName<<"\n";
+				else
+					std::cout<<"Unable to Delete "<<deleteFileName<<"\n";
+			}
+			else if(choice == "n")
+				std::cout<<deleteFileName<< " not deleted\n";
+			else
+				std::cout<<"Exiting program\n";
+				
+	}
+		
+	
+
+	return 0;
+}
+
+int FileManipulator::renameFile(vector<string> listArgs) {
+
+	cout << "rename a file....." << endl;
+	
+
+
+	return 0;
+}
+
+ int FileManipulator::deleteFile(vector<string> listArgs) {
+
+	 char choice;
+	 // Erasing the command from the input string
+	 listArgs.erase(listArgs.begin());
+	
+	 // for loop to delete files files
+	 for (auto fileName : listArgs) {
+	
+		 // each file requested to be deleted is input into string deleteFileName
+		 std::string deleteFileName = fileName + ".pofm";
+		
+		 ifstream f(deleteFileName);
+
+		 // Checking the file exists.
+		 if (f.good()) {
+			
+			 // Recheck if the user wants to delete the file
+			 std::cout << "Are you sure you want to delete "<<deleteFileName<<" (y/n)";
+			 std::cin >> choice;
+			
+			 // If yes, the file is deleted.
+			 if (choice == 'y') {
+				 if (!std::remove("deleteFileName"))
+					 std::cout << "Successfully deleted " << deleteFileName << "\n";
+				 else
+					 std::cout << "Unable to Delete " << deleteFileName << "\n";
+			 }
+			 // If no, the file is not deleted.
+			 else if (choice == 'n')
+				 std::cout << deleteFileName << " not deleted\n";
+			 
+			 // Any other option, the program exits.
+			 else
+				 std::cout << "Exiting program\n";
+
+		 }
+		 else {
+			 // If unable to locate the file
+			 cout<<"File to be deleted cannot be located\n";
+		 }
+
+
+
+		 
+	 }
+	 return 0;
+ }
+
+
+int FileManipulator::renameFile(vector<string> listArgs) {
+
+	cout << "rename a file....." << endl;
+	// Variable for oldFileName
+	string oldFileName;
+	// Variable for newFileName
+	string newFileName;
+
+
+	return 0;
+}
+
 
 
 /// <summary>
@@ -279,11 +348,104 @@ int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) 
 
 		 }
 		
+	
+
+	return 0;
+}
 
 
+int  FileManipulator::InsertTextByPosition(vector<string> listArgs) {
+	// insert filename position_number text;
 
+
+	   std::string fileName;
+	   int SpecifiedPostion;
+	   int countChars = 0;
+	   std::string tempData;
+	   std::string line;
+	   std::string data;
+       listArgs.erase(listArgs.begin());
+
+	 
+
+	   fileName = listArgs.at(0);
+	   SpecifiedPostion = std::stoi(listArgs.at(1));
+	   data = listArgs.at(2);
+
+	   //check for all args if they are valid or not
+	   std::string newFileName = fileName + ".pofm";
+	   
+
+	   //create an object stream
+	   ifstream file(newFileName);
+
+	   //Check if this file exist
+	   if (file.good() == false) {
+
+		   std::cout << "This file doesn't exist !";
+
+	   }
+	   
+	   //Check if the position is valid or not
+	   if (SpecifiedPostion < 0) {
+		   std::cout << "Pos shouldn't be negative !" << std::endl;
+	   }
+
+	   FILE* fptr;
+	   const char* a = newFileName.c_str();
+	   const char* h = "w";
+	    fptr = std::fopen(a,h);
+		if (fptr == NULL) {
+			std::cout << "fptr is null" << std::endl;
+		}
+		const char* const d = data.c_str();
 
 	
+
+
+
+	return 0;
+}
+
+int FileManipulator::removeAllTextFile(vector<string> listArgs) {
+
+	std::cout << "Remove the text in the file....." << std::endl;
+
+	//Erase the command
+	listArgs.erase(listArgs.begin());
+	
+
+	for (auto fileName : listArgs) {
+
+
+		//check for all args if they are valid or not
+		std::string newFileName = fileName + ".pofm";
+
+
+		//create an object input stream
+		ifstream ifile(newFileName);
+		
+
+		//Check if this file exist
+		if (file.good() == false) {
+
+			std::cout << "This file doesn't exist !";
+
+		}
+
+		//close the object input file stream
+		file.close();
+
+		ofstream ofile(newFileName);
+		
+		// we open the file for writing and use the trunc option to discard all the data in the file
+		ofile.open(newFileName, std::ofstream::out | std::ofstream::trunc);
+		//close the file output stream
+		ofile.close();
+
+
+
+	}
 
 	return 0;
 }
