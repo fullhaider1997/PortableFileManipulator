@@ -19,6 +19,11 @@ using namespace std;
 	 //Erase first argument because its the command and args are only needed.
 	 listArgs.erase(listArgs.begin() );
 
+	 if (listArgs.size() == 0) {
+		 std::cout << "Missing an args" << std::endl;
+		 return 0;
+	 }
+
 
 	 for (auto fileName : listArgs) {
 
@@ -61,10 +66,19 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 	// Deleting the [command] from the code
 	listArgs.erase(listArgs.begin());
 	
+
+
+	if (listArgs.size() == 0) {
+		std::cout << "Missing an args" << std::endl;
+		return 0;
+	}
+
+
+
+
 	// listArgs takes into account the names of all the files that need to be renamed.
 	// 
 	
-
 	char* oldFileNameCharArray;
 	char* newFileNameCharArray;
 
@@ -125,6 +139,11 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 	 char choice;
 	 // Erasing the command from the input string
 	 listArgs.erase(listArgs.begin());
+
+	 if (listArgs.size() == 0) {
+		 std::cout << "Missing an args" << std::endl;
+		 return 0;
+	 }
 	
 	 // for loop to delete files files
 	 for (auto fileName : listArgs) {
@@ -140,7 +159,7 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 			 // Closing the file is necessary in order to delete the file.
 			 f.close();
 			 // Recheck if the user wants to delete the file
-			 std::cout << "Are you sure you want to delete "<<deleteFileName<<" (y/n)";
+			 std::cout << "Are you sure you want to delete " << deleteFileName << " (y/n)" << std::endl;
 			 std::cin >> choice;
 			
 			 // If yes, the file is deleted.
@@ -176,38 +195,21 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 int FileManipulator::copyFile(vector<string> listArgs)
 {
 	listArgs.erase(listArgs.begin());
+
+	if (listArgs.size() == 0) {
+		std::cout << "Missing two args" << std::endl;
+		return 0;
+	} else if (listArgs.size() == 1) {
+		 std::cout << "Missing one arg" << std::endl;
+		 return 0;
+	  }
+
 	string to = listArgs.back();
 	string from = listArgs.front();
 	ifstream fi;
 	ofstream fo;
 	char c;
-	//try to access original source file to copy
-	//fi.open(from);
-	//if (!fi)
-	//{
-	//	cout << "Cannot open source file";
-	//	return 0;
-	//}
-
-	////try to open the target file to paste in.
-	//fo.open(to);
-	//if (!fo)
-	//{
-	//	cout << "Cannot open target file";
-	//	return 0;
-	//}
-
-
-	//while (fi.eof() == 0)
-	//{
-	//	fi >> c;
-	//	fo << c;
-	//}
-	//cout << "Copying file successful";
-	//fi.close();
-	//fo.close();
-	//return 0;
-
+	
 	//access sourcefile
 	fi.open(from, fstream::in | fstream::binary);
 
@@ -236,16 +238,30 @@ int FileManipulator::moveFile(vector<string> listArgs)
 {
 	//not using streams
 	listArgs.erase(listArgs.begin());
+
+	if (listArgs.size() == 0) {
+		std::cout << "Missing an args" << std::endl;
+		return 0;
+	}
+	else if (listArgs.size() == 1) {
+		std::cout << "Missing one more arg" << std::endl;
+		return 0;
+	}
+
+
 	string to = listArgs.back();
 	string from = listArgs.front();
 	const char* f = from.c_str();
 	const char* t = to.c_str();
 
+	std::cout << to << std::endl;
+	std::cout << from << std::endl;
+
 	//instead use rename function to move directory
 	int process = rename(f, t);
-	if (process = 0)
+	if (process == 0)
 		std::cout << "File successfully moved"<<endl;
-	else
+	else 
 		std::cout << "Error moving file"<<endl;
 
 	return process;
@@ -262,7 +278,17 @@ int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) 
 	 char ch;
 
 	//Erase the first arg because its just the command
-	//listArgs.erase(listArgs.begin());
+	listArgs.erase(listArgs.begin());
+
+	if (listArgs.size() == 0) {
+		std::cout << "Missing two args" << std::endl;
+		return 0;
+	}
+	else if (listArgs.size() == 1) {
+		std::cout << "Missing one arg" << std::endl;
+		return 0;
+	}
+
 
 	 command.erase(command.begin(), command.begin() + 6);
 
@@ -355,9 +381,21 @@ int  FileManipulator::InsertTextByPosition(vector<string> listArgs, string comma
 
 	listArgs.erase(listArgs.begin());
 
+
+	if (listArgs.size() == 0) {
+		std::cout << "Missing three args" << std::endl;
+		return 0;
+	}
+
+	if (listArgs.size() == 2) {
+		std::cout << "Missing one args" << std::endl;
+		return 0;
+	}
+	
 	try {
 
 		SpecifiedPostion += std::stoi(listArgs.at(1));
+
 	}catch (const std::out_of_range& error) {
 		std::cout << "Missing an position arg" << std::endl;
 		return 0;
@@ -388,10 +426,6 @@ int  FileManipulator::InsertTextByPosition(vector<string> listArgs, string comma
 	//Retrieve the text between the first quotation mark and second quotation mark and store in variable text;
 	data = command.substr(posFirstSingleQuotation, posSecondSingleQuotation);
 
-	// std::cout << "Data is :" << data << std::endl;
-
-
-
 	 //check for all args if they are valid or not
 	std::string newFileName = fileName + ".pofm";
 
@@ -402,7 +436,7 @@ int  FileManipulator::InsertTextByPosition(vector<string> listArgs, string comma
 	//Check if this file exist
 	if (file.good() == false) {
 
-		std::cout << "This file doesn't exist";
+		std::cout << "This file doesn't exist" << std::endl;
 
 	}
 
@@ -517,6 +551,15 @@ void FileManipulator::help(vector<string> listArgs) {
 		std::cout << "\n";
 
 	}
+	else if (listArgs.at(0) == "removedata") {
+
+		std::cout << "\n";
+		std::cout << "move filename " << std::endl;
+		std::cout << "move filename1 filename2....filename(N) " << std::endl;
+		std::cout << "move c:drive/documents/file1 c:drive/folder1/file3 " << std::endl;
+		std::cout << "\n";
+
+	}
 
 
 
@@ -534,7 +577,7 @@ void FileManipulator::help(vector<string> listArgs) {
 
 void FileManipulator::removeAllTextFile(vector<string> listArgs) {
 
-	std::cout << "Remove the text in the file....." << std::endl;
+	
 
 	//Erase the command
 	listArgs.erase(listArgs.begin());
@@ -554,7 +597,7 @@ void FileManipulator::removeAllTextFile(vector<string> listArgs) {
 		//Check if this file exist
 		if (file.good() == false) {
 
-			std::cout << "This file doesn't exist !";
+			std::cout << "This file doesn't exist !" << std::endl;
 
 		}
 

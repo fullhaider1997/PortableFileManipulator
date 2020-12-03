@@ -84,10 +84,8 @@ int main()
 			
 			cout<<"Exiting Program. Good bye!" << endl;
 			exit(0);
-		}
-		
-		 
-		else {
+
+		} else {
 
 			std::cout << "unrecognized input!" << std::endl;
 		}
