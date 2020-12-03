@@ -56,46 +56,63 @@ using namespace std;
 	return 0;
 }
 
-
 int FileManipulator::deleteFile(vector<string> listArgs) {
 
-	char choice;
+	 char choice;
+	 // Erasing the command from the input string
+	 listArgs.erase(listArgs.begin());
 	
-	listArgs.erase(listArgs.begin());
+	 // for loop to delete files files
+	 for (auto fileName : listArgs) {
 	
-	for(auto fileName :listArgs){
+		 // each file requested to be deleted is input into string deleteFileName
+		 std::string deleteFileName = fileName + ".pofm";
 		
-		std::string deleteFileName = fileName + ".pofm";
-		
-		ifstream f(deleteFileName);
-		
-		if(f.good()) {
-			
-			std::cout<<"Are you sure you want to delete it (y/n)";
-			std::cin>>choice;
-			
-			if(choice == "y") {
-				if(!remove(deleteFileName))
-					std::cout<<"Successfully deleted "<<deleteFileName<<"\n";
-				else
-					std::cout<<"Unable to Delete "<<deleteFileName<<"\n";
-			}
-			else if(choice == "n")
-				std::cout<<deleteFileName<< " not deleted\n";
-			else
-				std::cout<<"Exiting program\n";
-				
-	}
-		
-	
+		 ifstream f(deleteFileName);
 
-	return 0;
-}
+		 // Checking the file exists.
+		 if (f.good()) {
+			
+			 // Recheck if the user wants to delete the file
+			 std::cout << "Are you sure you want to delete "<<deleteFileName<<" (y/n)";
+			 std::cin >> choice;
+			
+			 // If yes, the file is deleted.
+			 if (choice == 'y') {
+				 if (!std::remove("deleteFileName"))
+					 std::cout << "Successfully deleted " << deleteFileName << "\n";
+				 else
+					 std::cout << "Unable to Delete " << deleteFileName << "\n";
+			 }
+			 // If no, the file is not deleted.
+			 else if (choice == 'n')
+				 std::cout << deleteFileName << " not deleted\n";
+			 
+			 // Any other option, the program exits.
+			 else
+				 std::cout << "Exiting program\n";
+
+		 }
+		 else {
+			 // If unable to locate the file
+			 cout<<"File to be deleted cannot be located\n";
+		 }
+
+
+
+		 
+	 }
+	 return 0;
+ }
+
 
 int FileManipulator::renameFile(vector<string> listArgs) {
 
 	cout << "rename a file....." << endl;
-	
+	// Variable for oldFileName
+	string oldFileName;
+	// Variable for newFileName
+	string newFileName;
 
 
 	return 0;
@@ -403,6 +420,8 @@ int  FileManipulator::InsertTextByPosition(vector<string> listArgs) {
 	
 
 
+int  FileManipulator::InsertTextByPosition(vector<string> listArgs) {
+	// insert filename position_number text;
 
 	return 0;
 }

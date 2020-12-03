@@ -18,9 +18,7 @@ public:
 	static int appendTextEndFile(vector<string> listArgs,string name);
 	static int InsertTextByPosition(vector<string> listArgs);
 	static int removeAllTextFile(vector<string> listArgs);
-
-
-
+	
 
 
 };
