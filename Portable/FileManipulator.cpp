@@ -31,13 +31,15 @@ using namespace std;
 		 //Check if this file name already exist in the current directory
 		 if (f.good()) {
 
-			 std::cout << "This file name already exist";
+			 std::cout <<newFileName<< "already exists. Please use another name." <<endl;		// Print error message.
+			 f.close();
 
 		 }else{
 
 			 //If doesn't exist create the file
 
 			 std::ofstream outfile(newFileName);
+			 cout << "Successfully created " << newFileName << endl;			// Print success message
 
 			 outfile.close();
 
@@ -49,22 +51,74 @@ using namespace std;
 	 return 0;
 }
 
-
-
-
-
-
+ /* List Args takes into account all the oldFileNames which
+  *	need to be deleted.
+  */
 
 int FileManipulator::renameFile(vector<string> listArgs) {
-
 	cout << "rename a file....." << endl;
-	// Variable for oldFileName
-	string oldFileName;
-	// Variable for newFileName
-	string newFileName;
+
+	// Deleting the [command] from the code
+	listArgs.erase(listArgs.begin());
+	
+	// listArgs takes into account the names of all the files that need to be renamed.
+	// 
+	
+
+	char* oldFileNameCharArray;
+	char* newFileNameCharArray;
+
+
+	
+	for (auto fileName : listArgs) {
+		
+		// variable for newFileName
+
+		string oldFileName = fileName + ".pofm";
+		string newFileName;
+		
+		// Checking if the file exists
+		ifstream f(oldFileName);
+
+		// If file exists
+		if (f.good()) {
+			// Need to close the file in order to rename the file.
+			f.close();
+
+			// Accept the file Name to renamed.
+			cout << "Enter the new File Name" << endl;
+			cin >> newFileName;		// Only if the file exists do we request for renaming a file.
+
+			// Appending the extension to newFileName
+			newFileName = newFileName + ".pofm";
+
+			// Converting string to char pointer
+			oldFileNameCharArray = &oldFileName[0];
+			newFileNameCharArray = &newFileName[0];
+			
+			// Rename function is used.
+			// It returns 0 if successful.
+			// Returns 1 if the unsuccessful.
+			if (rename(oldFileNameCharArray, newFileNameCharArray) != 0)
+				cout << "Error in renaming files. Please close the file before renaming it."<< endl;
+			else
+				cout << "Renaming Successful\n";
+
+
+		}
+		else
+		{	
+			// File does not exist to rename.
+			cout << "File does not exist\n";
+		}
+
+	
+
+	}
 
 
 	return 0;
+
 }
 
  int FileManipulator::deleteFile(vector<string> listArgs) {
@@ -84,16 +138,18 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 		 // Checking the file exists.
 		 if (f.good()) {
 			
+			 // Closing the file is necessary in order to delete the file.
+			 f.close();
 			 // Recheck if the user wants to delete the file
 			 std::cout << "Are you sure you want to delete "<<deleteFileName<<" (y/n)";
 			 std::cin >> choice;
 			
 			 // If yes, the file is deleted.
 			 if (choice == 'y') {
-				 if (!std::remove("deleteFileName"))
-					 std::cout << "Successfully deleted " << deleteFileName << "\n";
+				 if (!std::remove(deleteFileName.c_str()))
+					 std::cout << "Successfully deleted " << deleteFileName << "\n";		// Printing success message.
 				 else
-					 std::cout << "Unable to Delete " << deleteFileName << "\n";
+					 std::cout << "Unable to Delete " << deleteFileName << "Please close the file and try deleting again.\n";			// Printing error message.
 			 }
 			 // If no, the file is not deleted.
 			 else if (choice == 'n')
@@ -105,6 +161,7 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 
 		 }
 		 else {
+			 f.close();
 			 // If unable to locate the file
 			 cout<<"File to be deleted cannot be located\n";
 		 }
@@ -167,10 +224,10 @@ int FileManipulator::copyFile(vector<string> listArgs)
 		//close both files
 		fo.close();
 		fi.close();
-		std::cout << "Successfully copied file...";
+		std::cout << "Successfully copied file..."<<endl;
 	}
 	else {
-		std::cout << "Source File error..";
+		std::cout << "Source File error.."<<endl;
 	}
 
 	return 0;
@@ -188,9 +245,9 @@ int FileManipulator::moveFile(vector<string> listArgs)
 	//instead use rename function to move directory
 	int process = rename(f, t);
 	if (process = 0)
-		std::cout << "File successfully moved";
+		std::cout << "File successfully moved"<<endl;
 	else
-		std::cout << "Error moving file";
+		std::cout << "Error moving file"<<endl;
 
 	return process;
 }
