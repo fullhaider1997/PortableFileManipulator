@@ -372,7 +372,7 @@ int FileManipulator::removeAllTextFile(vector<string> listArgs) {
 
 
 		//create an object input stream
-		ifstream ifile(newFileName);
+		ifstream file(newFileName);
 		
 
 		//Check if this file exist
