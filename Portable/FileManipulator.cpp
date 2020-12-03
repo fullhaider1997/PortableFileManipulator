@@ -467,7 +467,7 @@ void FileManipulator::help(vector<string> listArgs) {
 	if (listArgs.empty()) {
 		std::cout << "must include an additional arg" << std::endl;
 		cout << "Useful commands for this program are " << endl;
-		cout << " 1. create \n 2. delete \n 3. rename \n 4. append \n 5. move \n 6. remove\n";
+		cout << " 1. create \n 2. delete \n 3. rename \n 4. append \n 5. move \n 6. insert\n";
 	}
 
 	else if (listArgs.at(0) == "delete") {
@@ -513,8 +513,8 @@ void FileManipulator::help(vector<string> listArgs) {
 	else if (listArgs.at(0) == "move") {
 
 		std::cout << "\n";
-		std::cout << "rename path1 path2" << std::endl;
-		std::cout << "rename c:drive/documents/file1 c:drive/folder1/file3 " << std::endl;
+		std::cout << "move path1 path2" << std::endl;
+		std::cout << "move c:drive/documents/file1 c:drive/folder1/file3 " << std::endl;
 		std::cout << "\n";
 
 	}
