@@ -48,13 +48,13 @@ int main()
 		}
 		else if (listArgs.at(COMMAND) == "copy") {
 
-			//FileManipulator::copyFile(listArgs);
+			FileManipulator::copyFile(listArgs);
 
 		}
 		
 		else if (listArgs.at(COMMAND) == "move") {
 
-			//FileManipulator::moveFile(listArgs);
+			FileManipulator::moveFile(listArgs);
 
 		}
 		else if (listArgs.at(COMMAND) == "append") {
