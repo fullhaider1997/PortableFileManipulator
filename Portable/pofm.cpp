@@ -80,6 +80,11 @@ int main()
 			
 			FileManipulator::help(listArgs);
 		}
+		else if(listArgs.at(COMMAND) == "exit") {
+			
+			cout<<"Exiting Program. Good bye!" << endl;
+			exit(0);
+		}
 		
 		 
 		else {
