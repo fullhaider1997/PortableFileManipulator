@@ -463,11 +463,14 @@ void FileManipulator::help(vector<string> listArgs) {
 
 	listArgs.erase(listArgs.begin());
 
-	if (listArgs.size() == 0) {
+	
+	if (listArgs.empty()) {
 		std::cout << "must include an additional arg" << std::endl;
+		cout << "Useful commands for this program are " << endl;
+		cout << " 1. create \n 2. delete \n 3. rename \n 4. append \n 5. move \n 6. remove\n";
 	}
 
-	if (listArgs.at(0) == "remove") {
+	else if (listArgs.at(0) == "remove") {
 
 		std::cout << "\n";
 		std::cout << "remove filename" << std::endl;
