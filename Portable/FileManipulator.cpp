@@ -13,7 +13,7 @@
 #include <stdio.h>
 using namespace std;
 
- void FileManipulator::createFile(vector<string> listArgs)
+ int FileManipulator::createFile(vector<string> listArgs)
 {
 
 	 //Erase first argument because its the command and args are only needed.
@@ -45,68 +45,17 @@ using namespace std;
 		 }
 	 }
 	
-	 
-
-
-
-
-
-
-
-
+	
+	 return 0;
 }
 
-int FileManipulator::deleteFile(vector<string> listArgs) {
-
-	 char choice;
-	 // Erasing the command from the input string
-	 listArgs.erase(listArgs.begin());
-	
-	 // for loop to delete files files
-	 for (auto fileName : listArgs) {
-	
-		 // each file requested to be deleted is input into string deleteFileName
-		 std::string deleteFileName = fileName + ".pofm";
-		
-		 ifstream f(deleteFileName);
-
-		 // Checking the file exists.
-		 if (f.good()) {
-			
-			 // Recheck if the user wants to delete the file
-			 std::cout << "Are you sure you want to delete "<<deleteFileName<<" (y/n)";
-			 std::cin >> choice;
-			
-			 // If yes, the file is deleted.
-			 if (choice == 'y') {
-				 if (!std::remove("deleteFileName"))
-					 std::cout << "Successfully deleted " << deleteFileName << "\n";
-				 else
-					 std::cout << "Unable to Delete " << deleteFileName << "\n";
-			 }
-			 // If no, the file is not deleted.
-			 else if (choice == 'n')
-				 std::cout << deleteFileName << " not deleted\n";
-			 
-			 // Any other option, the program exits.
-			 else
-				 std::cout << "Exiting program\n";
-
-		 }
-		 else {
-			 // If unable to locate the file
-			 cout<<"File to be deleted cannot be located\n";
-		 }
 
 
 
-		 
-	 }
-	 
- }
 
 
-void FileManipulator::renameFile(vector<string> listArgs) {
+
+int FileManipulator::renameFile(vector<string> listArgs) {
 
 	cout << "rename a file....." << endl;
 	// Variable for oldFileName
@@ -115,7 +64,7 @@ void FileManipulator::renameFile(vector<string> listArgs) {
 	string newFileName;
 
 
-	
+	return 0;
 }
 
  int FileManipulator::deleteFile(vector<string> listArgs) {
@@ -168,27 +117,6 @@ void FileManipulator::renameFile(vector<string> listArgs) {
  }
 
 
-int FileManipulator::renameFile(vector<string> listArgs) {
-
-	cout << "rename a file....." << endl;
-	// Variable for oldFileName
-	string oldFileName;
-	// Variable for newFileName
-	string newFileName;
-
-
-	return 0;
-}
-
-
-
-/// <summary>
-/// Copy file from a source location to a target location
-///  Both copies exist
-/// </summary>
-/// <param name="from">Source Location</param>
-/// <param name="to">Target Location</param>
-/// <returns></returns>
 int FileManipulator::copyFile(vector<string> listArgs)
 {
 	listArgs.erase(listArgs.begin());
@@ -244,15 +172,10 @@ int FileManipulator::copyFile(vector<string> listArgs)
 	else {
 		std::cout << "Source File error..";
 	}
+
+	return 0;
 }
 
-/// <summary>
-/// Move file from source location to a target location
-/// Only one copy of file exists
-/// </summary>
-/// <param name="from"></param>
-/// <param name="to"></param>
-/// <returns></returns>
 int FileManipulator::moveFile(vector<string> listArgs)
 {
 	//not using streams
@@ -286,19 +209,7 @@ int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) 
 	//listArgs.erase(listArgs.begin());
 
 	 command.erase(command.begin(), command.begin() + 6);
-	/*
-	std::cout << "List of args..." << std::endl;
 
-	for (auto arg : listArgs) {
-		std::cout << arg << std::endl;
-	}
-	*/
-
-    //concatenate all args into a string
-	//for (auto arg : listArgs) {
-		//stringVersion += arg;
-		
-	//}
 	       stringVersion = command;
 	     
 	     //Find the first single quotation mark
@@ -375,113 +286,191 @@ int  FileManipulator::InsertTextByPosition(vector<string> listArgs, string comma
 	// insert filename position_number text;
 
 
-	   std::string fileName;
-	   int SpecifiedPostion = 1;
-	   int countChars = 0;
-	   std::string tempData;
-	   std::string line;
-	   std::string data;
-	   std::size_t posFirstSingleQuotation = 0;
-	   std::size_t posSecondSingleQuotation = 0;
-	   
-       listArgs.erase(listArgs.begin());
+	std::string fileName;
+	int SpecifiedPostion = 1;
+	int countChars = 0;
+	std::string tempData;
+	std::string line;
+	std::string data;
+	std::size_t posFirstSingleQuotation = 0;
+	std::size_t posSecondSingleQuotation = 0;
+	std::string perviousData; // to store text the pervious text until specified position
+	std::string lastData; // to store text after the specified position
 
-	   try {
+	listArgs.erase(listArgs.begin());
 
-		   SpecifiedPostion += std::stoi(listArgs.at(1));
-	   }
-	   catch (const std::out_of_range &error) {
-		   std::cout << "Missing an position arg" << std::endl;
+	try {
+
+		SpecifiedPostion += std::stoi(listArgs.at(1));
+	}catch (const std::out_of_range& error) {
+		std::cout << "Missing an position arg" << std::endl;
+		return 0;
+
+
+	}
+
+
+
+	fileName = listArgs.at(0);
+	// data = listArgs.at(2);
+
+	posFirstSingleQuotation = command.find("'");
+
+	// if you found the first single quotation mark
+	if (posFirstSingleQuotation != std::string::npos) {
+
+		//Erase the first single quotation mark
+		command.erase(command.begin() + posFirstSingleQuotation);
+
+		//find the second quotation mark
+		posSecondSingleQuotation = command.find("'");
+
+		//Erase the second quotation mark
+		command.erase(command.begin() + posSecondSingleQuotation);
+
+	}
+	//Retrieve the text between the first quotation mark and second quotation mark and store in variable text;
+	data = command.substr(posFirstSingleQuotation, posSecondSingleQuotation);
+
+	// std::cout << "Data is :" << data << std::endl;
+
+
+
+	 //check for all args if they are valid or not
+	std::string newFileName = fileName + ".pofm";
+
+
+	//create an object stream
+	ifstream file(newFileName, fstream::in);
+
+	//Check if this file exist
+	if (file.good() == false) {
+
+		std::cout << "This file doesn't exist";
+
+	}
+
+	char ch;
+	//Check if the position is valid or not
+	if (SpecifiedPostion < 0) {
+		std::cout << "Pos shouldn't be negative !" << std::endl;
+	}
+	int count = 0;
+
+
+	
+
+	// file character by character
+	while (file.get(ch)) {
+
+
+		//As you read he file character by character, increment the position to track current position
+		count++;
+
+		//If specified position is greater than count than store data in perviousData;
+		//Otherwise store it in EndData
+		if (SpecifiedPostion > count) {
+
+			perviousData += ch;
+
+		}
+		else {
+
+			lastData += ch;
+		}
+
+	}
+
+	file.close();
+
+	ofstream file1(newFileName, fstream::in);
+
+
+		   // combine pervious data, new data from the user, and last data after specified positioned into a new string
+		   std::string newdata = perviousData + data + lastData;
+
+		   //write the new string into the file
+		   file1 << newdata;
+
+		   file1.close();
+
 		   return 0;
-		   
-
 	   }
 
 
 
-	   fileName = listArgs.at(0);
-	  // data = listArgs.at(2);
 
-	   posFirstSingleQuotation = command.find("'");
+void FileManipulator::help(vector<string> listArgs) {
 
-	   // if you found the first single quotation mark
-	   if (posFirstSingleQuotation != std::string::npos) {
+	
 
-		   //Erase the first single quotation mark
-		   command.erase(command.begin() + posFirstSingleQuotation);
+	listArgs.erase(listArgs.begin());
 
-		   //find the second quotation mark
-		   posSecondSingleQuotation = command.find("'");
+	if (listArgs.size() == 0) {
+		std::cout << "must include an additional arg" << std::endl;
+	}
 
-		   //Erase the second quotation mark
-		   command.erase(command.begin() + posSecondSingleQuotation);
+	if (listArgs.at(0) == "remove") {
 
-	   }
-	   //Retrieve the text between the first quotation mark and second quotation mark and store in variable text;
-	   data = command.substr(posFirstSingleQuotation, posSecondSingleQuotation);
+		std::cout << "\n";
+		std::cout << "remove filename" << std::endl;
+		std::cout << "remove filename1 filename2...filename(N)" << std::endl;
+		std::cout << "remove file1" << std::endl;
+		std::cout << "\n";
 
-	  // std::cout << "Data is :" << data << std::endl;
+	} 
+	else if (listArgs.at(0) == "insert") {
+
+		std::cout << "\n";
+		std::cout << "insert position 'text' " << std::endl;
+		std::cout << "insert 5 'Hello world' " << std::endl;
+		std::cout << "\n";
+	}
+	else if (listArgs.at(0) == "create") {
+
+		std::cout << "\n";
+		std::cout << "create filename" << std::endl;
+		std::cout << "create filename1 filename2...filename(N)" << std::endl;
+		std::cout << "create file2 " << std::endl;
+		std::cout << "\n";
+
+	}
+	else if (listArgs.at(0) == "append") {
+
+		std::cout << "\n";
+		std::cout << "append filename 'text'" << std::endl;
+		std::cout << "append file2 'my name is john' " << std::endl;
+		std::cout << "\n";
+
+	}else if (listArgs.at(0) == "rename") {
+
+		std::cout << "\n";
+		std::cout << "rename filename newfilename" << std::endl;
+		std::cout << "rename file1 file3 " << std::endl;
+		std::cout << "\n";
+
+	}
+	else if (listArgs.at(0) == "move") {
+
+		std::cout << "\n";
+		std::cout << "rename path1 path2" << std::endl;
+		std::cout << "rename c:drive/documents/file1 c:drive/folder1/file3 " << std::endl;
+		std::cout << "\n";
+
+	}
 
 
 
-	   //check for all args if they are valid or not
-	   std::string newFileName = fileName + ".pofm";
+
+
+
+
+
+
+
+
+
 	   
-
-	   //create an object stream
-	   ifstream file(newFileName, fstream::in);
-
-	   //Check if this file exist
-	   if (file.good() == false) {
-
-		   std::cout << "This file doesn't exist";
-
-	   }
-
-	   char ch;
-	   //Check if the position is valid or not
-	   if (SpecifiedPostion < 0) {
-		   std::cout << "Pos shouldn't be negative !" << std::endl;
-	   }
-	   int count = 0;
-
-	   std::string perviousData; // to store text the pervious text until specified position
-	   std::string lastData; // to store text after the specified position
-
-	   // file character by character
-	   while (file.get(ch)) {
-
-		   cout << ch;
-
-		   //As you read he file character by character, increment the position to track current position
-		   count++;
-		   
-		   //If specified position is greater than count than store data in perviousData;
-		   //Otherwise store it in EndData
-		   if (SpecifiedPostion > count) {
-
-			   PerviousData += ch;
-
-		   }else {
-
-			   lastData += ch;
-		   }
-
-
-	   }
-	   
-	   // combine pervious data, new data from the user, and last data after specified positioned into a new string
-	   std::string newdata = PerviousData + data + lastData;
-
-	   //write the new string into the file
-	   file << newdata;
-
-	   file.close();
-
-int  FileManipulator::InsertTextByPosition(vector<string> listArgs) {
-	// insert filename position_number text;
-
-	   return 0;
 }
 
 void FileManipulator::removeAllTextFile(vector<string> listArgs) {
@@ -525,3 +514,4 @@ void FileManipulator::removeAllTextFile(vector<string> listArgs) {
 	}
 
 }
+

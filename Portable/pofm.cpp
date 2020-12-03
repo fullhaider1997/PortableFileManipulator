@@ -76,6 +76,10 @@ int main()
 
 			FileManipulator::removeAllTextFile(listArgs);
 		}
+		else if (listArgs.at(COMMAND) == "help") {
+			
+			FileManipulator::help(listArgs);
+		}
 		
 		 
 		else {
