@@ -31,7 +31,7 @@ using namespace std;
 		 //Check if this file name already exist in the current directory
 		 if (f.good()) {
 
-			 std::cout <<newFileName<< "already exists. Please use another name." <<endl;		// Print error message.
+			 std::cout <<newFileName<< " already exists. Please use another name." <<endl;		// Print error message.
 			 f.close();
 
 		 }else{
@@ -86,7 +86,7 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 			f.close();
 
 			// Accept the file Name to renamed.
-			cout << "Enter the new File Name" << endl;
+			cout << "Enter the new File Name for " <<oldFileName << endl;
 			cin >> newFileName;		// Only if the file exists do we request for renaming a file.
 
 			// Appending the extension to newFileName
