@@ -470,12 +470,12 @@ void FileManipulator::help(vector<string> listArgs) {
 		cout << " 1. create \n 2. delete \n 3. rename \n 4. append \n 5. move \n 6. remove\n";
 	}
 
-	else if (listArgs.at(0) == "remove") {
+	else if (listArgs.at(0) == "delete") {
 
 		std::cout << "\n";
-		std::cout << "remove filename" << std::endl;
-		std::cout << "remove filename1 filename2...filename(N)" << std::endl;
-		std::cout << "remove file1" << std::endl;
+		std::cout << "delete filename" << std::endl;
+		std::cout << "delete filename1 filename2...filename(N)" << std::endl;
+		std::cout << "delete file1" << std::endl;
 		std::cout << "\n";
 
 	} 
@@ -505,8 +505,8 @@ void FileManipulator::help(vector<string> listArgs) {
 	}else if (listArgs.at(0) == "rename") {
 
 		std::cout << "\n";
-		std::cout << "rename filename newfilename" << std::endl;
-		std::cout << "rename file1 file3 " << std::endl;
+		std::cout << "rename file1 file2 file3 .... file(N)" << std::endl << "Here you are required to enter the names of files you want to rename. The new file name will be accepted later in the program.\n";
+		std::cout << "rename file1 " << std::endl << "Here you are required to enter the names of files you want to rename. The new file name will be accepted later in the program.\n"; 
 		std::cout << "\n";
 
 	}
