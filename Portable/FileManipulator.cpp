@@ -1,18 +1,19 @@
 #include "FileManipulator.h"
 #include <stdio.h>
-#include "utilties.h"
+#include "utilities.h"
 #include <iostream>
 #include <fstream> 
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
 #include <string>
+#include <stdexcept>
 #define _CRT_SECURE_NO_DEPRECATE
 #pragma warning(disable : 4996)
 #include <stdio.h>
 using namespace std;
 
- int FileManipulator::createFile(vector<string> listArgs)
+ void FileManipulator::createFile(vector<string> listArgs)
 {
 
 	 //Erase first argument because its the command and args are only needed.
@@ -53,10 +54,9 @@ using namespace std;
 
 
 
-	return 0;
 }
 
- int FileManipulator::deleteFile(vector<string> listArgs) {
+ void FileManipulator::deleteFile(vector<string> listArgs) {
 
 	 char choice;
 	 // Erasing the command from the input string
@@ -102,11 +102,11 @@ using namespace std;
 
 		 
 	 }
-	 return 0;
+	 
  }
 
 
-int FileManipulator::renameFile(vector<string> listArgs) {
+void FileManipulator::renameFile(vector<string> listArgs) {
 
 	cout << "rename a file....." << endl;
 	// Variable for oldFileName
@@ -115,7 +115,7 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 	string newFileName;
 
 
-	return 0;
+	
 }
 
 
@@ -126,7 +126,7 @@ int FileManipulator::renameFile(vector<string> listArgs) {
 /// <param name="from">Source Location</param>
 /// <param name="to">Target Location</param>
 /// <returns></returns>
-int FileManipulator::copyFile(string from, string to) 
+void FileManipulator::copyFile(string from, string to) 
 {
 	ifstream fi;
 	ofstream fo;
@@ -187,7 +187,7 @@ int FileManipulator::copyFile(string from, string to)
 /// <param name="from"></param>
 /// <param name="to"></param>
 /// <returns></returns>
-int FileManipulator::moveFile(string from, string to)
+int  FileManipulator::moveFile(string from, string to)
 {
 	//not using streams
 
@@ -212,7 +212,7 @@ int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) 
 	 std::string stringVersion;
 	 std::size_t posFirstSingleQuotation = 0;
 	 std::size_t posSecondSingleQuotation = 0;
-	 
+	 char ch;
 
 	//Erase the first arg because its just the command
 	//listArgs.erase(listArgs.begin());
@@ -299,64 +299,122 @@ int FileManipulator::appendTextEndFile(vector<string> listArgs, string command) 
 		
 	
 
-	return 0;
+		 return 0;
 }
 
 
-int  FileManipulator::InsertTextByPosition(vector<string> listArgs) {
+int  FileManipulator::InsertTextByPosition(vector<string> listArgs, string command) {
 	// insert filename position_number text;
 
 
 	   std::string fileName;
-	   int SpecifiedPostion;
+	   int SpecifiedPostion = 1;
 	   int countChars = 0;
 	   std::string tempData;
 	   std::string line;
 	   std::string data;
+	   std::size_t posFirstSingleQuotation = 0;
+	   std::size_t posSecondSingleQuotation = 0;
+	   
        listArgs.erase(listArgs.begin());
 
-	 
+	   try {
+
+		   SpecifiedPostion += std::stoi(listArgs.at(1));
+	   }
+	   catch (const std::out_of_range &error) {
+		   std::cout << "Missing an position arg" << std::endl;
+		   return 0;
+		   
+
+	   }
+
+
 
 	   fileName = listArgs.at(0);
-	   SpecifiedPostion = std::stoi(listArgs.at(1));
-	   data = listArgs.at(2);
+	  // data = listArgs.at(2);
+
+	   posFirstSingleQuotation = command.find("'");
+
+	   // if you found the first single quotation mark
+	   if (posFirstSingleQuotation != std::string::npos) {
+
+		   //Erase the first single quotation mark
+		   command.erase(command.begin() + posFirstSingleQuotation);
+
+		   //find the second quotation mark
+		   posSecondSingleQuotation = command.find("'");
+
+		   //Erase the second quotation mark
+		   command.erase(command.begin() + posSecondSingleQuotation);
+
+	   }
+	   //Retrieve the text between the first quotation mark and second quotation mark and store in variable text;
+	   data = command.substr(posFirstSingleQuotation, posSecondSingleQuotation);
+
+	  // std::cout << "Data is :" << data << std::endl;
+
+
 
 	   //check for all args if they are valid or not
 	   std::string newFileName = fileName + ".pofm";
 	   
 
 	   //create an object stream
-	   ifstream file(newFileName);
+	   ifstream file(newFileName, fstream::in);
 
 	   //Check if this file exist
 	   if (file.good() == false) {
 
-		   std::cout << "This file doesn't exist !";
+		   std::cout << "This file doesn't exist";
 
 	   }
-	   
+
+	   char ch;
 	   //Check if the position is valid or not
 	   if (SpecifiedPostion < 0) {
 		   std::cout << "Pos shouldn't be negative !" << std::endl;
 	   }
+	   int count = 0;
 
-	   FILE* fptr;
-	   const char* a = newFileName.c_str();
-	   const char* h = "w";
-	    fptr = std::fopen(a,h);
-		if (fptr == NULL) {
-			std::cout << "fptr is null" << std::endl;
-		}
-		const char* const d = data.c_str();
+	   std::string perviousData; // to store text the pervious text until specified position
+	   std::string lastData; // to store text after the specified position
 
-	
+	   // file character by character
+	   while (file.get(ch)) {
+
+		   cout << ch;
+
+		   //As you read he file character by character, increment the position to track current position
+		   count++;
+		   
+		   //If specified position is greater than count than store data in perviousData;
+		   //Otherwise store it in EndData
+		   if (SpecifiedPostion > count) {
+
+			   PerviousData += ch;
+
+		   }else {
+
+			   lastData += ch;
+		   }
 
 
+	   }
+	   
+	   // combine pervious data, new data from the user, and last data after specified positioned into a new string
+	   std::string newdata = PerviousData + data + lastData;
 
-	return 0;
+	   //write the new string into the file
+	   file << newdata;
+
+	   file.close();
+
+
+	   return 0;
 }
 
-int FileManipulator::removeAllTextFile(vector<string> listArgs) {
+void FileManipulator::removeAllTextFile(vector<string> listArgs) {
 
 	std::cout << "Remove the text in the file....." << std::endl;
 
@@ -396,5 +454,4 @@ int FileManipulator::removeAllTextFile(vector<string> listArgs) {
 
 	}
 
-	return 0;
 }

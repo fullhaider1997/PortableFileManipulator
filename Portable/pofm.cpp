@@ -28,12 +28,9 @@ int main()
 		if (command.size() > 0) {
 			listArgs = Utility::convertStringToVectorString(command);
 		}else{
-
 			continue;
 		}
 		
-
-
 		
 		if (listArgs.at(COMMAND) == "create") {
 			
@@ -51,13 +48,13 @@ int main()
 		}
 		else if (listArgs.at(COMMAND) == "copy") {
 
-			FileManipulator::copyFile(listArgs);
+			//FileManipulator::copyFile(listArgs);
 
 		}
 		
 		else if (listArgs.at(COMMAND) == "move") {
 
-			FileManipulator::moveFile(listArgs);
+			//FileManipulator::moveFile(listArgs);
 
 		}
 		else if (listArgs.at(COMMAND) == "append") {
@@ -72,7 +69,7 @@ int main()
 		}
 		else if (listArgs.at(COMMAND) == "insert") {
 
-			FileManipulator::InsertTextByPosition(listArgs);
+			FileManipulator::InsertTextByPosition(listArgs,command);
 
 		}
 		else if (listArgs.at(COMMAND) == "removedata") {

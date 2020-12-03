@@ -10,14 +10,14 @@ class FileManipulator {
 
 
 public:
-	static int createFile(vector<string> listArgs);
-	static int deleteFile(vector<string> listArgs);
-	static int renameFile(vector<string> listArgs);
-	static int copyFile(string from, string to);
+	static void createFile(vector<string> listArgs);
+	static void deleteFile(vector<string> listArgs);
+	static void renameFile(vector<string> listArgs);
+	static void copyFile(string from, string to);
 	static int moveFile(string from, string to);
 	static int appendTextEndFile(vector<string> listArgs,string name);
-	static int InsertTextByPosition(vector<string> listArgs);
-	static int removeAllTextFile(vector<string> listArgs);
+	static int InsertTextByPosition(vector<string> listArgs, string command);
+	static void removeAllTextFile(vector<string> listArgs);
 	
 
 
